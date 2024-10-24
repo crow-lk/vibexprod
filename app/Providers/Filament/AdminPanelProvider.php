@@ -2,6 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\MembersResource\Widgets\MembersChart;
+use App\Filament\Resources\MembersResource\Widgets\MembersOverview;
+use App\Models\Members;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -41,6 +44,8 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
+				MembersOverview::class,
+				MembersChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -68,7 +73,7 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('System')
             ])
-            
+
             ->plugin(FilamentScaffoldPlugin::make());
     }
 }

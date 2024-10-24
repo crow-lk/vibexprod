@@ -11,8 +11,18 @@ class SubscriptionPayments extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'subscription_payments';
-    protected $fillable = ['membership_subscription_id','start_date','next_pament_date'];
+    protected $fillable = ['membership_subscription_id','start_date','next_pament_date','amount'];
 
+
+	protected static function booted()
+	{
+		static::created(function ($member) {
+			// update the MembershipSubscription payment status to 'paid' when a new payment is created
+			$member->membershipSubscription->update(['payment_status' => 'paid']);
+			// update the Members membership status to 'active' when a new payment is created
+			$member->member->update(['membership_status' => 'active']);
+		});
+	}
 
 
     public function membershipSubscription()

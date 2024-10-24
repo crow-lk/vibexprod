@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MembersResource\Pages;
 use App\Filament\Resources\MembersResource\RelationManagers;
+use App\Filament\Resources\MembersResource\Widgets\MembersOverview;
 use App\Models\Members;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -64,7 +65,7 @@ class MembersResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
 
-            
+
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
@@ -78,5 +79,4 @@ class MembersResource extends Resource
             'index' => Pages\ManageMembers::route('/'),
         ];
     }
-
 }
