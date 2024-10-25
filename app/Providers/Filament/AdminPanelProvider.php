@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Resources\MembersResource\Widgets\MembersChart;
 use App\Filament\Resources\MembersResource\Widgets\MembersOverview;
+use App\Filament\Resources\MembersResource\Widgets\TodayPaymentMembers;
 use App\Models\Members;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -42,10 +43,12 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Widgets\FilamentInfoWidget::class,
+                TodayPaymentMembers::class,
 				MembersOverview::class,
 				MembersChart::class,
+                
+                // Widgets\AccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

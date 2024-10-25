@@ -6,11 +6,14 @@ use Filament\Widgets\ChartWidget;
 
 class MembersChart extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = 'Active & Inactive Members';
+
+	//reducing the chart size
+	protected static int $columns = 2;
 
     protected function getData(): array
     {
-		$totalMembers = \App\Models\Members::count();
+		$totalMembers = \App\Models\Members::where('membership_status', 'active')->count();
 		$inactiveMembers = \App\Models\Members::where('membership_status', 'inactive')->count();
         return [
             'datasets' => [
@@ -20,8 +23,8 @@ class MembersChart extends ChartWidget
 						$inactiveMembers,
 					],
 					'backgroundColor' => [
-						'#3490dc',
-						'#f6993f',
+						'#008000',
+						'#f43378',
 					],
 				],
 			],
