@@ -32,6 +32,7 @@ class SubscriptionPaymentsResource extends Resource
                     ->options(Members::pluck('name', 'id')) // Get list of members
                     ->reactive()
                     ->required()
+                    ->searchable()
                     ->afterStateUpdated(function (callable $set, $state) {
                         // Reset the subscription field when the member changes
                         $set('membership_subscription_id', null);

@@ -23,6 +23,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Solutionforest\FilamentScaffold\FilamentScaffoldPlugin;
+use Filament\Widgets\Grid;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -44,11 +45,13 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 // Widgets\FilamentInfoWidget::class,
-                TodayPaymentMembers::class,
 				MembersOverview::class,
+                TodayPaymentMembers::class,
+
 				MembersChart::class,
                 
                 // Widgets\AccountWidget::class,
+                
             ])
             ->middleware([
                 EncryptCookies::class,

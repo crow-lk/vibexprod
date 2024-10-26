@@ -9,6 +9,8 @@ class MembersOverview extends BaseWidget
 {
     protected function getStats(): array
     {
+        //decrease the size of the widget
+        
 		$totalMembers = \App\Models\Members::count();
 		$inactiveMembers = \App\Models\Members::where('membership_status', 'inactive')->count();
         return [
