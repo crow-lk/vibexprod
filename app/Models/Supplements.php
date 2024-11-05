@@ -9,6 +9,6 @@ class Supplements extends Model
 {
     use SoftDeletes;
     protected $table = 'supplements';
-    protected $fillable = ['name','price','available_qty','image','description'];
+    protected $fillable = ['name','price','available_qty','description','cost_price'];
     
 }

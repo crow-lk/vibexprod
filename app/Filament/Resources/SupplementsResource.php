@@ -27,6 +27,7 @@ class SupplementsResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('price')->required(),
+                Forms\Components\TextInput::make('cost_price')->required(),
                 Forms\Components\TextInput::make('available_qty')->required(),
                 //add image upload
                 // Forms\Components\FileUpload::make('image')->image()->required(),
@@ -40,6 +41,7 @@ class SupplementsResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('cost_price')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('available_qty')->sortable()->searchable(),
                 // Tables\Columns\TextColumn::make('image')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('description')->sortable()->searchable()

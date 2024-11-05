@@ -14,8 +14,9 @@ class MembersOverview extends BaseWidget
 		$totalMembers = \App\Models\Members::count();
 		$inactiveMembers = \App\Models\Members::where('membership_status', 'inactive')->count();
         return [
-			Stat::make('Total Members', $totalMembers),
-			Stat::make('Inactive Members', $inactiveMembers),
+			Stat::make('Total Members', $totalMembers)->icon('heroicon-o-users'),
+			Stat::make('Inactive Members', $inactiveMembers)->icon('heroicon-o-user-minus'),
+            
         ];
     }
 }

@@ -70,11 +70,14 @@ class AdminPanelProvider extends PanelProvider
 
             ->navigationGroups([
                 NavigationGroup::make()
-                     ->label('Gym Member Management'),
+                     ->label('Gym Member Management')->collapsed(),
                 NavigationGroup::make()
-                    ->label('Subscription Packages'),
+                    ->label('Subscription Packages')->collapsed(),
                 NavigationGroup::make()
                     ->label('Gym Expenses')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Reports')
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('System')
