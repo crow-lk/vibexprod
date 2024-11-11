@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Resources\MembersResource\Widgets\MembersChart;
 use App\Filament\Resources\MembersResource\Widgets\MembersOverview;
 use App\Filament\Resources\MembersResource\Widgets\TodayPaymentMembers;
+use App\Filament\Resources\SubscriptionPaymentsResource\Widgets\LatePayments;
 use App\Models\Members;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -47,6 +48,7 @@ class AdminPanelProvider extends PanelProvider
                 // Widgets\FilamentInfoWidget::class,
 				MembersOverview::class,
                 TodayPaymentMembers::class,
+                LatePayments::class,
 
 				MembersChart::class,
                 
