@@ -48,11 +48,12 @@ class AdminPanelProvider extends PanelProvider
                 // Widgets\FilamentInfoWidget::class,
 				MembersOverview::class,
                 TodayPaymentMembers::class,
-                LatePayments::class,
+                
 
 				MembersChart::class,
                 
                 // Widgets\AccountWidget::class,
+                LatePayments::class,
                 
             ])
             ->middleware([

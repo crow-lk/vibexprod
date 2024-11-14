@@ -31,9 +31,10 @@ class LatePayments extends BaseWidget
                 
                 //show next payment date
                 Tables\Columns\TextColumn::make('next_pament_date')
-                    ->label('Next Payment Date')
+                    ->label('Payment Date')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->date('Y-m-d'),
                 
                 Tables\Columns\TextColumn::make('amount')
                     ->label('Amount')
