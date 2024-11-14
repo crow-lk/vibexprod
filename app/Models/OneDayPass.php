@@ -9,5 +9,5 @@ class OneDayPass extends Model
 {
     use SoftDeletes;
     protected $table = 'one_day_pass';
-    protected $fillable = ['name','nic','phone','email','address'];
+    protected $fillable = ['name','nic','phone','email','address','amount'];
 }

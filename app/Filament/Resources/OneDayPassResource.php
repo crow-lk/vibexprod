@@ -6,6 +6,7 @@ use App\Filament\Resources\OneDayPassResource\Pages;
 use App\Filament\Resources\OneDayPassResource\RelationManagers;
 use App\Models\OneDayPass;
 use Filament\Forms;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -29,7 +30,8 @@ class OneDayPassResource extends Resource
                 Forms\Components\TextInput::make('nic')->required()->label('NIC'),
                 Forms\Components\TextInput::make('phone')->required(),
                 Forms\Components\TextInput::make('email'),
-                Forms\Components\TextInput::make('address')
+                Forms\Components\TextInput::make('address'),
+                Forms\Components\TextInput::make('amount')->required()->inputMode('decimal')->numeric(),
             ]);
     }
 
@@ -41,7 +43,9 @@ class OneDayPassResource extends Resource
                 Tables\Columns\TextColumn::make('nic')->sortable()->searchable()->label('NIC'),
                 Tables\Columns\TextColumn::make('phone')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('email')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('address')->sortable()->searchable()
+                Tables\Columns\TextColumn::make('address')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('amount')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('created_at')->sortable()->searchable()->label('Date'),
             ])
             ->filters([
                 //
