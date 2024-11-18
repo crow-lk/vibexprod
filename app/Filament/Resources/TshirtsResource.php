@@ -31,6 +31,7 @@ class TshirtsResource extends Resource
                     'medium' => 'Medium',
                     'large' => 'Large',
                     'extra_large' => 'Extra Large',
+                    'double_extra_large' => 'Double Extra Large',
                 ]),
                 Forms\Components\TextInput::make('available_qty')->required(),
                 Forms\Components\TextInput::make('description')->required()
