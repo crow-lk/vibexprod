@@ -24,23 +24,26 @@ class SupplementStock extends Model
         return $this->belongsTo(Supplements::class);
     }
 
-
     // Automatically adjust the available quantity when a sale is created
     protected static function booted()
     {
         static::creating(function ($stock) {
             $supplement = Supplements::find($stock->supplement_id);
 
-            // Calculate total cost
-            $stock->total_cost = $stock->quantity * $stock->cost_price;
+            // Ensure cost is used for total_cost calculation
+            $stock->total_cost = $stock->quantity * $stock->cost;
 
-            // increase stock
-            $supplement->increment('available_qty', $stock->quantity);
+            if ($supplement) {
+                // Increase stock
+                $supplement->increment('available_qty', $stock->quantity);
+            }
         });
 
         // Restore stock if the sale is deleted
         static::deleting(function ($stock) {
-            $stock->supplement->decrement('available_qty', $stock->quantity);
+            if ($stock->supplement) {
+                $stock->supplement->decrement('available_qty', $stock->quantity);
+            }
         });
     }
 }
