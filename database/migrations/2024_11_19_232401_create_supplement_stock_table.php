@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('supplements', function (Blueprint $table) {
+        Schema::create('supplement_stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('price');
-            $table->string('available_qty');
-            // $table->longText('image');
-            $table->string('description');
+            $table->unsignedBigInteger('supplement_id');
+            $table->foreign('supplement_id')->references('id')->on('supplements')->onDelete('cascade');
+            $table->integer('quantity');
+            $table->decimal('cost');
+            $table->datetime('stocked_at');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supplements');
+        Schema::dropIfExists('supplement_stocks');
     }
 };

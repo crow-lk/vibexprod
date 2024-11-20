@@ -16,4 +16,9 @@ class Supplements extends Model
     {
         return $this->hasMany(SupplementSale::class, 'supplement_id');
     }
+
+    public function supplementStocks()
+    {
+        return $this->hasMany(SupplementStock::class, 'supplement_id');
+    }
 }
