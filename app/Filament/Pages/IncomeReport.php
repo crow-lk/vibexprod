@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Resources\SubscriptionPaymentsResource\Widgets\TodayPayments;
+use App\Filament\Resources\SupplementSalesResource\Widgets\TodaySupplementSales;
 use App\Models\SubscriptionPayments;
 use Filament\Pages\Page;
 
@@ -43,5 +45,13 @@ class IncomeReport extends Page
             ->groupByRaw('MONTHNAME(created_at), MONTH(created_at)')
             ->orderByRaw('month_number')
             ->get();
+    }
+
+    public function getHeaderWidgets(): array
+    {
+        return [
+            TodayPayments::make(),
+            TodaySupplementSales::make(),
+        ];
     }
 }

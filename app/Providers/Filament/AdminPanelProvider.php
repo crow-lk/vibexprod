@@ -6,6 +6,8 @@ use App\Filament\Resources\MembersResource\Widgets\MembersChart;
 use App\Filament\Resources\MembersResource\Widgets\MembersOverview;
 use App\Filament\Resources\MembersResource\Widgets\TodayPaymentMembers;
 use App\Filament\Resources\SubscriptionPaymentsResource\Widgets\LatePayments;
+use App\Filament\Resources\SubscriptionPaymentsResource\Widgets\TodayPayments;
+use App\Filament\Resources\SupplementSalesResource\Widgets\TodaySupplementSales;
 use App\Models\Members;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -47,8 +49,9 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 // Widgets\FilamentInfoWidget::class,
 				MembersOverview::class,
+                TodayPayments::class,
+                TodaySupplementSales::class,
                 TodayPaymentMembers::class,
-                
 
 				MembersChart::class,
                 
