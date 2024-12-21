@@ -11,7 +11,7 @@ class Members extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'members';
-    protected $fillable = ['name','nic','email','phone','address','membership_status','subscription_id'];
+    protected $fillable = ['membership_id','name','nic','email','phone','address','membership_status','subscription_id'];
 
     // public function membershipSubscriptions()
     // {

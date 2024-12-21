@@ -27,6 +27,7 @@ class MembersResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('membership_id')->required(),
                 Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('nic')->required()->label('NIC'),
                 Forms\Components\TextInput::make('email')->nullable(),
@@ -49,7 +50,7 @@ class MembersResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('membership_id')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('nic')->sortable()->searchable()->label('NIC'),
                 Tables\Columns\TextColumn::make('email')->sortable()->searchable(),
