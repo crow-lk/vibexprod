@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\SupplementSalesResource\Pages;
 
 use App\Filament\Resources\SupplementSalesResource;
+use App\Filament\Resources\SupplementSalesResource\Widgets\MonthlySupplementSales;
 use App\Filament\Resources\SupplementSalesResource\Widgets\TodaySupplementSales;
+use Carbon\Month;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
@@ -21,6 +23,7 @@ class ManageSupplementSales extends ManageRecords
     protected function getHeaderWidgets(): array {
         return [
             TodaySupplementSales::make(),
+            MonthlySupplementSales::make(),
         ];
     }
 }

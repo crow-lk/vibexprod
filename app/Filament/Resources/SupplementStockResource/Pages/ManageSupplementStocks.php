@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\SupplementStockResource\Pages;
 
 use App\Filament\Resources\SupplementStockResource;
+use App\Filament\Resources\SupplementStockResource\Widgets\MonthlySupplementStocks;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
@@ -14,6 +15,12 @@ class ManageSupplementStocks extends ManageRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array {
+        return [
+            MonthlySupplementStocks::make(),
         ];
     }
 }
