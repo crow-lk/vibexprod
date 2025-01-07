@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SupplementStockResource\Pages;
-use App\Filament\Resources\SupplementStockResource\RelationManagers;
-use App\Models\SupplementStock;
+use App\Filament\Resources\tshirtStockResource\Pages;
+use App\Filament\Resources\tshirtStockResource\RelationManagers;
+use App\Models\TshirtStock;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,21 +13,22 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SupplementStockResource extends Resource
+class TshirtStockResource extends Resource
 {
-    protected static ?string $model = SupplementStock::class;
+    protected static ?string $model = TshirtStock::class;
 
     protected static ?string $navigationIcon = 'heroicon-s-cube';
-    protected static ?string $navigationGroup = 'Supplements';
+
+    protected static ?string $navigationGroup = 'T-Shirts';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('supplement_id')
-                    ->relationship('supplement', 'name') // Fetch supplement name
+                Forms\Components\Select::make('tshirt_id')
+                    ->relationship('tshirt', 'name') // Fetch tshirt name
                     ->required()
-                    ->placeholder('Select Supplement')
+                    ->placeholder('Select T-Shirt')
                     ->searchable(),
 
                 Forms\Components\TextInput::make('quantity')->required()->reactive()->debounce(500)
@@ -57,7 +58,7 @@ class SupplementStockResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('supplement.name')->label('Supplement')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('tshirt.name')->label('tshirt')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('quantity')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('cost')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('total_cost')->sortable()->searchable(),
@@ -80,7 +81,7 @@ class SupplementStockResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageSupplementStocks::route('/'),
+            'index' => Pages\ManageTshirtStocks::route('/'),
         ];
     }
 }

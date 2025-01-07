@@ -8,6 +8,7 @@ use App\Filament\Resources\MembersResource\Widgets\TodayPaymentMembers;
 use App\Filament\Resources\SubscriptionPaymentsResource\Widgets\LatePayments;
 use App\Filament\Resources\SubscriptionPaymentsResource\Widgets\TodayPayments;
 use App\Filament\Resources\SupplementSalesResource\Widgets\TodaySupplementSales;
+use App\Filament\Resources\TshirtSalesResource\Widgets\TodayTshirtSales;
 use App\Models\Members;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -51,13 +52,14 @@ class AdminPanelProvider extends PanelProvider
 				MembersOverview::class,
                 TodayPayments::class,
                 TodaySupplementSales::class,
+                TodayTshirtSales::class,
                 TodayPaymentMembers::class,
 
 				MembersChart::class,
-                
+
                 // Widgets\AccountWidget::class,
                 LatePayments::class,
-                
+
             ])
             ->middleware([
                 EncryptCookies::class,

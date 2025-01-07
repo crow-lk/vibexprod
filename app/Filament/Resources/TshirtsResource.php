@@ -17,7 +17,7 @@ class TshirtsResource extends Resource
 {
     protected static ?string $model = Tshirt::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $navigationIcon = 'heroicon-s-tag';
 
     protected static ?string $navigationGroup = 'T-Shirts';
 
@@ -26,6 +26,8 @@ class TshirtsResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
+                Forms\Components\TextInput::make('price')->required(),
+                Forms\Components\TextInput::make('cost_price')->required(),
                 Forms\Components\Select::make('size')->required()->options([
                     'small' => 'Small',
                     'medium' => 'Medium',
@@ -43,6 +45,8 @@ class TshirtsResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('price')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('cost_price')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('size')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('available_qty')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('description')->sortable()->searchable()

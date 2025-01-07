@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tshirts', function (Blueprint $table) {
+        Schema::create('tshirt_stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('size');
-            $table->string('available_qty');
-            $table->string('description');
+            $table->unsignedBigInteger('tshirt_id');
+            $table->foreign('tshirt_id')->references('id')->on('tshirts')->onDelete('cascade');
+            $table->integer('quantity');
+            $table->decimal('cost');
+            $table->datetime('stocked_at');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -25,8 +26,8 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('tshirts');
+        Schema::dropIfExists('tshirt_stocks');
     }
 };
