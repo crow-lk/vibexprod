@@ -9,7 +9,7 @@ class TshirtSale extends Model
 {
     use SoftDeletes;
     protected $table = 'tshirt_sales';
-    protected $fillable = ['tshirt_id','quantity','total_price'];
+    protected $fillable = ['tshirt_id','size','quantity','total_price'];
 
 
     public function tshirt()
@@ -22,12 +22,12 @@ class TshirtSale extends Model
     {
         static::creating(function ($sale) {
             $tshirt = Tshirt::find($sale->tshirt_id);
-            if (!$tshirt) {
-                $sale->total_price = 0; // or throw an exception
-            } else {
-                $sale->total_price = $sale->quantity * $tshirt->price;
-                $tshirt->decrement('available_qty', $sale->quantity);
-            }
+
+            // Ensure cost is used for total_cost calculation
+            $sale->total_price = $sale->quantity * $tshirt->price;
+
+            // Reduce stock
+            $tshirt->decrement('available_qty', $sale->quantity);
         });
 
         // Restore stock if the sale is deleted

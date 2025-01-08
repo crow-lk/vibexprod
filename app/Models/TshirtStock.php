@@ -14,6 +14,7 @@ class TshirtStock extends Model
     protected $fillable = [
         'tshirt_id',
         'quantity',
+        'size',
         'cost',
         'total_cost',
         'stocked_at',
@@ -42,7 +43,7 @@ class TshirtStock extends Model
         // Restore stock if the sale is deleted
         static::deleting(function ($stock) {
             if ($stock->tshirt) {
-                $stock->tshirt->decrement('available_qty', $stock->quantity);
+                $stock->tshirt->decrement('available_qty',$stock->quantity);
             }
         });
     }

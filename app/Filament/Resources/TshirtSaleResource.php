@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TshirtSaleResource\Pages;
-use App\Filament\Resources\TshirtSaleResource\RelationManagers;
+use App\Filament\Resources\tshirtSaleResource\Pages;
+use App\Filament\Resources\tshirtSaleResource\RelationManagers;
 use App\Models\Tshirt;
 use App\Models\TshirtSale;
 use Filament\Forms;
@@ -27,21 +27,21 @@ class TshirtSaleResource extends Resource
 {
     return $form
         ->schema([
-            // Tshirt Dropdown
-            Forms\Components\Select::make('Tshirt_id')
-                ->relationship('Tshirt', 'name') // Fetch Tshirt name
+            // tshirt Dropdown
+            Forms\Components\Select::make('tshirt_id')
+                ->relationship('tshirt', 'name') // Fetch tshirt name
                 ->required()
-                ->placeholder('Select Tshirt')
+                ->placeholder('Select tshirt')
                 ->searchable()
-                ->reactive() // Reacts to changes in Tshirt selection
+                ->reactive() // Reacts to changes in tshirt selection
                 ->afterStateUpdated(function (callable $get, callable $set) {
-                    $TshirtId = $get('Tshirt_id');
+                    $tshirtId = $get('tshirt_id');
                     $quantity = intval($get('quantity')); // Ensure quantity is an integer
-                    if ($TshirtId) {
-                        $Tshirt = \App\Models\Tshirt::find($TshirtId);
-                        if ($Tshirt) {
-                            $set('total_price', floatval($Tshirt->price) * $quantity);
-                            $set('available_qty', $Tshirt->available_qty);
+                    if ($tshirtId) {
+                        $tshirt = \App\Models\Tshirt::find($tshirtId);
+                        if ($tshirt) {
+                            $set('total_price', floatval($tshirt->price) * $quantity);
+                            $set('available_qty', $tshirt->available_qty);
                         }
                     } else {
                         $set('total_price', 0);
@@ -55,18 +55,25 @@ class TshirtSaleResource extends Resource
                 ->required()
                 ->reactive() // Reacts to changes in quantity
                 ->afterStateUpdated(function (callable $get, callable $set) {
-                    $TshirtId = $get('Tshirt_id');
+                    $tshirtId = $get('tshirt_id');
                     $quantity = intval($get('quantity')); // Ensure quantity is an integer
-                    if ($TshirtId) {
-                        $Tshirt = \App\Models\Tshirt::find($TshirtId);
-                        if ($Tshirt) {
-                            $set('total_price', floatval($Tshirt->price) * $quantity);
+                    if ($tshirtId) {
+                        $tshirt = \App\Models\Tshirt::find($tshirtId);
+                        if ($tshirt) {
+                            $set('total_price', floatval($tshirt->price) * $quantity);
                         }
                     } else {
                         $set('total_price', 0);
                     }
                 }),
 
+            Forms\Components\Select::make('size')->required()->options([
+                    'small' => 'Small',
+                    'medium' => 'Medium',
+                    'large' => 'Large',
+                    'extra_large' => 'Extra Large',
+                    'double_extra_large' => 'Double Extra Large',
+                ]),
             // Total Price Field (Read-Only)
             Forms\Components\TextInput::make('total_price')
                 ->numeric()
@@ -74,7 +81,7 @@ class TshirtSaleResource extends Resource
                 ->label('Total Price')
                 ->default(0), // Initialize with 0
 
-            // Show available quantity of selected Tshirt
+            // Show available quantity of selected tshirt
             Forms\Components\TextInput::make('available_qty')
                 ->disabled()
                 ->label('Available Quantity')
@@ -90,7 +97,8 @@ class TshirtSaleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('Tshirt.name')->label('Tshirt')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('tshirt.name')->label('tshirt')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('size')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('quantity')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('total_price')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->sortable()->searchable()->label('Date'),
