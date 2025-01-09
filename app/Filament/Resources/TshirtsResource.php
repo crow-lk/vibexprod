@@ -28,13 +28,10 @@ class TshirtsResource extends Resource
                 Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('price')->required(),
                 Forms\Components\TextInput::make('cost_price')->required(),
-                Forms\Components\Select::make('size')->required()->options([
-                    'small' => 'Small',
-                    'medium' => 'Medium',
-                    'large' => 'Large',
-                    'extra_large' => 'Extra Large',
-                    'double_extra_large' => 'Double Extra Large',
-                ]),
+                Forms\Components\Select::make('size_id')
+                    ->relationship('sizes', 'size') // Fetch tshirt size
+                    ->required()
+                    ->placeholder('Select Size'),
                 Forms\Components\TextInput::make('available_qty')->required(),
                 Forms\Components\TextInput::make('description')->required()
             ]);
@@ -45,9 +42,9 @@ class TshirtsResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('sizes.size')->label('Size')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('cost_price')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('size')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('available_qty')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('description')->sortable()->searchable()
             ])

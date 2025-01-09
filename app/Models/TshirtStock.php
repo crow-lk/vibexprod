@@ -14,7 +14,7 @@ class TshirtStock extends Model
     protected $fillable = [
         'tshirt_id',
         'quantity',
-        'size',
+        'size_id',
         'cost',
         'total_cost',
         'stocked_at',
@@ -22,7 +22,12 @@ class TshirtStock extends Model
 
     public function tshirt()
     {
-        return $this->belongsTo(Tshirt::class);
+        return $this->belongsTo(Tshirt::class,'id');
+    }
+
+    public function sizes()
+    {
+        return $this->belongsTo(Size::class,'id');
     }
 
     // Automatically adjust the available quantity when a sale is created
@@ -30,20 +35,24 @@ class TshirtStock extends Model
     {
         static::creating(function ($stock) {
             $tshirt = Tshirt::find($stock->tshirt_id);
+            $size = Size::find($stock->size_id);
 
             // Ensure cost is used for total_cost calculation
             $stock->total_cost = $stock->quantity * $stock->cost;
 
-            if ($tshirt) {
-                // Increase stock
+            if ($tshirt && $size) {
+                // Increase stock for the specific T-shirt and size
                 $tshirt->increment('available_qty', $stock->quantity);
             }
         });
 
-        // Restore stock if the sale is deleted
         static::deleting(function ($stock) {
-            if ($stock->tshirt) {
-                $stock->tshirt->decrement('available_qty',$stock->quantity);
+            $tshirt = Tshirt::find($stock->tshirt_id);
+            $size = Size::find($stock->size_id);
+
+            if ($tshirt && $size) {
+                // Decrease stock for the specific T-shirt and size
+                $tshirt->decrement('available_qty', $stock->quantity);
             }
         });
     }

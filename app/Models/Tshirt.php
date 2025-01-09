@@ -13,12 +13,17 @@ class Tshirt extends Model
 
     protected $fillable = [
         'name',
-        'size',
+        'size_id',
         'price',
         'cost_price',
         'available_qty',
         'description'
     ];
+
+    public function sizes()
+    {
+        return $this->hasMany(Size::class, 'id');
+    }
 
     public function tshirtSales()
     {

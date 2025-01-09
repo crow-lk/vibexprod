@@ -31,13 +31,10 @@ class TshirtStockResource extends Resource
                     ->placeholder('Select T-Shirt')
                     ->searchable(),
 
-                Forms\Components\Select::make('size')->required()->options([
-                        'small' => 'Small',
-                        'medium' => 'Medium',
-                        'large' => 'Large',
-                        'extra_large' => 'Extra Large',
-                        'double_extra_large' => 'Double Extra Large',
-                    ]),
+                Forms\Components\Select::make('size_id')
+                    ->relationship('sizes', 'size') // Fetch tshirt size
+                    ->required()
+                    ->placeholder('Select Size'),
 
                 Forms\Components\TextInput::make('quantity')->required()->reactive()->debounce(500)
                     ->afterStateUpdated(function (callable $get, callable $set) {
@@ -67,7 +64,7 @@ class TshirtStockResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('tshirt.name')->label('tshirt')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('size')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('sizes.size')->label('size')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('quantity')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('cost')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('total_cost')->sortable()->searchable(),

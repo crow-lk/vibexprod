@@ -67,13 +67,26 @@ class TshirtSaleResource extends Resource
                     }
                 }),
 
-            Forms\Components\Select::make('size')->required()->options([
-                    'small' => 'Small',
-                    'medium' => 'Medium',
-                    'large' => 'Large',
-                    'extra_large' => 'Extra Large',
-                    'double_extra_large' => 'Double Extra Large',
-                ]),
+            // size Dropdown
+            Forms\Components\Select::make('size_id')
+                ->relationship('sizes', 'size') // Fetch tshirt name
+                ->required()
+                ->placeholder('Select Size')
+                ->reactive() // Reacts to changes in tshirt selection
+                ->afterStateUpdated(function (callable $get, callable $set) {
+                    $tshirtId = $get('tshirt_id');
+                    $quantity = intval($get('quantity')); // Ensure quantity is an integer
+                    if ($tshirtId) {
+                        $tshirt = \App\Models\Tshirt::find($tshirtId);
+                        if ($tshirt) {
+                            $set('total_price', floatval($tshirt->price) * $quantity);
+                            $set('available_qty', $tshirt->available_qty);
+                        }
+                    } else {
+                        $set('total_price', 0);
+                        $set('available_qty', 0);
+                    }
+                }),
             // Total Price Field (Read-Only)
             Forms\Components\TextInput::make('total_price')
                 ->numeric()
@@ -98,7 +111,7 @@ class TshirtSaleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('tshirt.name')->label('tshirt')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('size')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('sizes.size')->label('size')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('quantity')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('total_price')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->sortable()->searchable()->label('Date'),
