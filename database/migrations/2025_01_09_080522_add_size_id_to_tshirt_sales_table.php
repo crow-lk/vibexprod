@@ -9,7 +9,8 @@ class AddSizeIdToTshirtSalesTable extends Migration
     public function up()
     {
         Schema::table('tshirt_sales', function (Blueprint $table) {
-            $table->foreignId('size_id')->constrained('sizes')->onDelete('cascade'); // Add size_id foreign key
+            $table->unsignedBigInteger('size_id')->nullable();// Add foreign key
+            $table->foreign('size_id')->references('id')->on('sizes')->onDelete('cascade');
             $table->dropColumn('size'); // Remove the old size column
         });
     }
