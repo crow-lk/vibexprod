@@ -8,6 +8,7 @@ use App\Models\Tshirt;
 use App\Models\TshirtSale;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -58,8 +59,17 @@ class TshirtSaleResource extends Resource
                     $tshirtId = $get('tshirt_id');
                     $quantity = intval($get('quantity')); // Ensure quantity is an integer
                     if ($tshirtId) {
-                        $tshirt = \App\Models\Tshirt::find($tshirtId);
+                        $tshirt = Tshirt::find($tshirtId);
                         if ($tshirt) {
+                            if ($quantity > $tshirt->available_qty) {
+                                // Show a notification if the quantity exceeds available stock
+                                Notification::make()
+                                    ->title('Stock Alert')
+                                    ->body('Stocks not available. Available quantity: ' . $tshirt->available_qty)
+                                    ->icon('heroicon-s-no-symbol')
+                                    ->danger() // Set the notification as dangerous (red)
+                                    ->send(); // Send the notification
+                            }
                             $set('total_price', floatval($tshirt->price) * $quantity);
                         }
                     } else {

@@ -33,7 +33,7 @@ class TshirtsResource extends Resource
                     ->required()
                     ->placeholder('Select Size'),
                 Forms\Components\TextInput::make('available_qty')->required(),
-                Forms\Components\TextInput::make('description')->required()
+                Forms\Components\TextInput::make('description')
             ]);
     }
 
