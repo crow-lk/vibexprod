@@ -5,6 +5,10 @@ namespace App\Filament\Pages;
 use App\Filament\Resources\SubscriptionPaymentsResource\Widgets\TodayPayments;
 use App\Filament\Resources\SupplementSalesResource\Widgets\TodaySupplementSales;
 use App\Filament\Resources\TshirtSalesResource\Widgets\TodayTshirtSales;
+use App\Filament\Resources\Widgets\Profit;
+use App\Filament\Resources\Widgets\ProfitReport;
+use App\Filament\Resources\Widgets\TotalExpenses;
+use App\Filament\Resources\Widgets\TotalIncome;
 use App\Models\SubscriptionPayments;
 use Filament\Pages\Page;
 
@@ -54,6 +58,9 @@ class IncomeReport extends Page
             TodayPayments::make(),
             TodaySupplementSales::make(),
             TodayTshirtSales::make(),
+            TotalExpenses::make(),
+            TotalIncome::make(),
+            Profit::make(),
         ];
     }
 }
