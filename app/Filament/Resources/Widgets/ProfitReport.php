@@ -2,57 +2,64 @@
 
 namespace App\Filament\Resources\Widgets;
 
-use Filament\Widgets\Widget;
-use Filament\Tables\Table;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\Layout\Component;
+use Filament\Widgets\StatsOverviewWidget as BaseWidget;
+use App\Models\SupplementSale;
+use App\Models\Expenses;
+use App\Models\OneDayPass;
+use App\Models\TshirtSale;
+use App\Models\SubscriptionPayments;
+use App\Models\SupplementStock;
+use App\Models\TshirtStock;
 
-class ProfitReport extends Widget
+class ProfitReport extends BaseWidget
 {
+    protected static string $view = 'filament.widgets.profit-report';
 
-    public function table(Table $table): Table
+    public float $profit;
+    public float $totalExpenses;
+    public float $totalIncome;
+    public $oneDay;
+    public $subscriptionPay;
+    public $supplimentSale;
+    public $tshirtSale;
+    public $supplimentCost;
+    public $tshirtCost;
+    public $expenses;
+
+    protected int | string | array $columnSpan = 'full';
+
+
+    public function mount(): void
     {
-        return $table
-            ->columns([
-                Component::make('Revenues')->label('Revenues')->columns([
-                    TextColumn::make('sales')->label('Sales')->sortable(),
-                    TextColumn::make('scrap_sales')->label('Scrap Sales')->sortable(),
-                    TextColumn::make('interest_income')->label('Interest Income')->sortable(),
-                ]),
-                Component::make('Expenses')->label('Expenses')->columns([
-                    TextColumn::make('cost_of_goods_sold')->label('Cost of Goods Sold')->sortable(),
-                    TextColumn::make('rent')->label('Rent')->sortable(),
-                    TextColumn::make('wages')->label('Wages')->sortable(),
-                    TextColumn::make('depreciation')->label('Depreciation')->sortable(),
-                    TextColumn::make('utilities')->label('Utilities')->sortable(),
-                ]),
-                TextColumn::make('total_revenues')->label('Total Revenues (A)')->sortable(),
-                TextColumn::make('total_expenses')->label('Total Expenses (B)')->sortable(),
-                TextColumn::make('net_income')->label('Net Income (A-B)')->sortable(),
-            ])
-            ->data($this->getData())
-            ->defaultSort('total_revenues', 'desc')
-            ->striped()
-            ->bordered();
+        $this->oneDay = OneDayPass::sum('amount');
+        $this->subscriptionPay = SubscriptionPayments::sum('amount');
+        $this->supplimentSale = SupplementSale::sum('total_price');
+        $this->tshirtSale = TshirtSale::sum('total_price');
+        $this->supplimentCost = SupplementStock::sum('total_cost');
+        $this->tshirtCost = TshirtStock::sum('total_cost');
+        $this->expenses = Expenses::sum('amount');
+        $this->totalIncome = $this->calculateTotalIncome();
+        $this->totalExpenses = $this->calculateTotalExpenses();
+        $this->profit = $this->calculateProfit();
     }
 
-    protected function getData()
+    protected function calculateTotalIncome(): float
     {
-        // Fetch or define your data here
-        return [
-            [
-                'sales' => '100,000.00',
-                'scrap_sales' => '9,000.00',
-                'interest_income' => '4,000.00',
-                'cost_of_goods_sold' => '60,000.00',
-                'rent' => '5,500.00',
-                'wages' => '15,000.00',
-                'depreciation' => '7,700.00',
-                'utilities' => '9,000.00',
-                'total_revenues' => '113,000.00',
-                'total_expenses' => '97,200.00',
-                'net_income' => '15,800.00',
-            ],
-        ];
+        return SupplementSale::sum('total_price') +
+               OneDayPass::sum('amount') +
+               TshirtSale::sum('total_price') +
+               SubscriptionPayments::sum('amount');
+    }
+
+    protected function calculateTotalExpenses(): float
+    {
+        return Expenses::sum('amount') +
+               TshirtStock::sum('total_cost') +
+               SupplementStock::sum('total_cost');
+    }
+
+    protected function calculateProfit(): float
+    {
+        return $this->totalIncome - $this->totalExpenses;
     }
 }
