@@ -26,14 +26,14 @@ class Report extends BaseWidget
 
         if ($profit < 0) {
             $profit = abs($profit);
-            $title = 'Total Loss';
+            $title = 'Total Loss (Rs.)';
         } else {
-            $title = 'Total Profit';
+            $title = 'Total Profit (Rs.)';
         }
 
         return [
-            Stat::make('Total Income', number_format($totalIncome, 2))->icon('heroicon-o-currency-dollar'),
-            Stat::make('Total Expenses', number_format($totalExpenses, 2))->icon('heroicon-o-currency-dollar'),
+            Stat::make('Total Income (Rs.)', number_format($totalIncome, 2))->icon('heroicon-o-currency-dollar'),
+            Stat::make('Total Expenses (Rs.)', number_format($totalExpenses, 2))->icon('heroicon-o-currency-dollar'),
             Stat::make($title, number_format($profit, 2))->icon('heroicon-o-currency-dollar'),
         ];
     }
