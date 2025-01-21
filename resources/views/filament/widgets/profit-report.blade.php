@@ -5,10 +5,10 @@
     </div>
     <div style="display: flex; align-items: center;">
         <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" wire:model="startDate" style="border-radius: 6px; padding: 2px; background-color:#2708b1;">
+        <input type="date" id="startDate" wire:model="startDate" style="border-radius: 6px; padding: 2px; background-color:#007BFF;">
 
         <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" wire:model="endDate" style="border-radius: 6px; padding: 2px; background-color:#2708b1;" />
+        <input type="date" id="endDate" wire:model="endDate" style="border-radius: 6px; padding: 2px; background-color:#007BFF;" />
 
         <button wire:click="updateFinancials" style="margin: 5px; padding: 5px; border-radius: 5px; background-color: #4CAF50; color: white;">Update</button>
     </div>
