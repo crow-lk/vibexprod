@@ -50,8 +50,8 @@ class ProfitReport extends BaseWidget
             $this->subscriptionPay = SubscriptionPayments::whereBetween('created_at', [$this->startDate, $this->endDate])->sum('amount');
             $this->supplimentSale = SupplementSale::whereBetween('created_at', [$this->startDate, $this->endDate])->sum('total_price');
             $this->tshirtSale = TshirtSale::whereBetween('created_at', [$this->startDate, $this->endDate])->sum('total_price');
-            $this->supplimentCost = SupplementStock::sum('total_cost'); // Assuming stock costs are not date-dependent
-            $this->tshirtCost = TshirtStock::sum('total_cost'); // Assuming stock costs are not date-dependent
+            $this->supplimentCost = SupplementStock::whereBetween('created_at', [$this->startDate, $this->endDate])->sum('total_cost');
+            $this->tshirtCost = TshirtStock::whereBetween('created_at', [$this->startDate, $this->endDate])->sum('total_cost');
             $this->expenses = Expenses::whereBetween('created_at', [$this->startDate, $this->endDate])->sum('amount');
 
             $this->totalIncome = $this->calculateTotalIncome();

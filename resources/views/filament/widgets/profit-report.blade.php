@@ -1,20 +1,20 @@
 <div style="padding: 10px; border-radius: 10px; border: 1px solid #ddd; left: 50px;">
-    <div style="text-align: center; background-color: #90EE90; font-weight: bold; font-size: 20px;">
+    <div style="text-align: center; background-color: #90EE90; font-weight: bold; font-size: 20px; color:#000000">
         <p>Vibex Fitness Gym</p>
         <p>Profit and Loss Statement</p>
     </div>
     <div style="display: flex; align-items: center;">
         <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" wire:model="startDate" style="border-radius: 6px; padding: 2px;">
+        <input type="date" id="startDate" wire:model="startDate" style="border-radius: 6px; padding: 2px; background-color:#2708b1;">
 
         <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" wire:model="endDate" style="border-radius: 6px; padding: 2px;" />
+        <input type="date" id="endDate" wire:model="endDate" style="border-radius: 6px; padding: 2px; background-color:#2708b1;" />
 
         <button wire:click="updateFinancials" style="margin: 5px; padding: 5px; border-radius: 5px; background-color: #4CAF50; color: white;">Update</button>
     </div>
     <table style="width: 100%; border-collapse: collapse; margin-top: 5px; margin-bottom: 20px;">
         <thead>
-            <tr style="background-color: #f8f68b;">
+            <tr style="background-color: #f8f68b; color:#000000">
                 <th style="text-align: left;">Particulars</th>
                 <th style="text-align: right;">Amount (Rs.)</th>
             </tr>

@@ -2,16 +2,16 @@
 
 namespace App\Filament\Pages;
 
-use App\Filament\Resources\Widgets\Report;
+use App\Filament\Resources\Widgets\IncomesReport;
 use App\Filament\Resources\Widgets\ProfitReport;
 use App\Models\SubscriptionPayments;
 use Filament\Pages\Page;
 
-class FinancialReport extends Page
+class IncomeReport extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationGroup = 'Reports';
-    protected static string $view = 'filament.pages.financial-report';
+    protected static string $view = 'filament.pages.income-report';
 
     public $totalPayments;
     public $monthlyPayments;
@@ -50,8 +50,7 @@ class FinancialReport extends Page
     public function getHeaderWidgets(): array
     {
         return [
-            Report::make(),
-            ProfitReport::make(),
+            IncomesReport::make(),
         ];
     }
 }
