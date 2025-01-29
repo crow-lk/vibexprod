@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Container\Attributes\Log;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +26,7 @@ class SubscriptionPayments extends Model
                 // Update statuses
                 $member->membershipSubscription->update(['payment_status' => 'paid']);
                 $member->member->update(['membership_status' => 'active']);
-    
+
                 // Send SMS notification with dynamic values
                 $nextPaymentDate = Date($member->next_pament_date); // Ensure this field is correct
                 $amount = $member->amount;
@@ -38,6 +39,33 @@ class SubscriptionPayments extends Model
             }
         });
     }
+
+    // public static function sendPaymentReminders()
+    // {
+    //     // Get today's date and the date three days from now
+    //     $today = Carbon::today();
+    //     $reminderDate = $today->addDays(3);
+
+    //     // Fetch all subscription payments where the next payment date is 3 days from now
+    //     $subscriptions = self::whereDate('next_pament_date', $reminderDate)->get();
+
+    //     foreach ($subscriptions as $subscription) {
+    //         $member = $subscription->member; // Get the member associated with the subscription
+
+    //         if ($member) {
+    //             $nextPaymentDate = $subscription->next_pament_date->format('Y-m-d'); // Format the date
+    //             $amount = $subscription->amount;
+
+    //             // Call the existing sendSmsNotification method
+    //             self::sendSmsNotification(
+    //                 self::formatPhoneNumber($member->phone),
+    //                 $member->name,
+    //                 $amount,
+    //                 $nextPaymentDate
+    //             );
+    //         }
+    //     }
+    // }
 
     public static function formatPhoneNumber($phone)
     {
